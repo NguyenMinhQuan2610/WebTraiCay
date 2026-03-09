@@ -1,0 +1,97 @@
+﻿/* Nền và Phông chữ */
+body {
+    background-color: #f0f4f8;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* TỔNG THỂ CARD SẢN PHẨM */
+.product-card {
+    border-radius: 20px !important;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.shadow-hover:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+/* KHUNG ẢNH ĐỀU NHAU TĂM TẮP */
+.product-img-box {
+    height: 240px;
+    background: #ffffff; /* Ép nền trắng để các ảnh tách biệt hẳn ra */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* Giữ nguyên dáng trái cây, không bị méo */
+}
+
+.product-price {
+    font-size: 1.25rem;
+    color: #e74c3c;
+    font-weight: 800;
+}
+
+.btn-detail {
+    background: #17a2b8;
+    color: white;
+    font-weight: 600;
+    padding: 8px 25px;
+    border: none;
+    transition: 0.3s;
+}
+
+    .btn-detail:hover {
+        background: #138496;
+        color: white;
+        transform: scale(1.05);
+    }
+
+/* BẢNG GIỎ HÀNG HIỆN ĐẠI */
+.table {
+    background: white;
+    border-radius: 15px;
+    border: none !important;
+}
+
+.cart-row {
+    border-bottom: 1px solid #f1f3f5;
+}
+
+.qty-spinner {
+    width: 70px;
+    border: 2px solid #28a745;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.delete-btn {
+    color: #cbd5e0;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: 0.2s;
+}
+
+    .delete-btn:hover {
+        color: #e53e3e;
+    }
+
+/* NAVBAR & BADGE */
+.navbar {
+    padding: 1rem 0;
+}
+
+.cart-counter {
+    background: #ff4757 !important;
+    font-size: 0.7rem;
+    padding: 0.4em 0.6em;
+    border: 2px solid white;
+}

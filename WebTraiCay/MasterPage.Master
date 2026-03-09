@@ -1,0 +1,551 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="WebTraiCay.MasterPage" %>
+
+<!DOCTYPE html>
+<html lang="vi">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruit Shop — Trái Cây Tươi Sạch</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+        :root {
+            --cream:     #FBF7EF;
+            --leaf:      #2D6A4F;
+            --leaf-mid:  #40916C;
+            --leaf-light:#74C69D;
+            --citrus:    #F4A228;
+            --citrus-lt: #FFD166;
+            --berry:     #D62828;
+            --text-dark: #1A1A1A;
+            --text-mid:  #4A4A4A;
+            --text-soft: #8A8A8A;
+            --shadow-md: 0 8px 32px rgba(0,0,0,0.10);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.14);
+            --radius:    16px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            font-size: 15px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.35;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .main-navbar {
+            background: linear-gradient(135deg, var(--leaf) 0%, var(--leaf-mid) 100%);
+            padding: 0;
+            border-bottom: 3px solid var(--citrus);
+            box-shadow: 0 4px 24px rgba(45, 106, 79, 0.35);
+        }
+
+        .main-navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        /* Brand */
+        .navbar-brand-custom {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none !important;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--citrus);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 12px rgba(244, 162, 40, 0.5);
+            transition: var(--transition);
+        }
+
+        .navbar-brand-custom:hover .brand-icon {
+            transform: rotate(-8deg) scale(1.1);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 1.35rem;
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+
+        .brand-tagline {
+            font-size: 0.68rem;
+            color: var(--citrus-lt);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Nav Links */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu .nav-item { position: relative; }
+
+        .nav-menu .nav-link-custom {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            border-radius: 50px;
+            color: rgba(255,255,255,0.88) !important;
+            font-weight: 500;
+            font-size: 0.88rem;
+            letter-spacing: 0.01em;
+            text-decoration: none !important;
+            transition: var(--transition);
+            border: 1.5px solid transparent;
+        }
+
+        .nav-menu .nav-link-custom:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff !important;
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .nav-menu .nav-link-custom.active {
+            background: var(--citrus);
+            color: var(--leaf) !important;
+            font-weight: 600;
+        }
+
+        .nav-menu .nav-link-custom i {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Cart badge */
+        .cart-badge {
+            position: absolute;
+            top: 3px;
+            right: 12px;
+            background: var(--berry);
+            color: #fff;
+            font-size: 0.62rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(214, 40, 40, 0.5);
+            border: 2px solid var(--leaf-mid);
+            pointer-events: none;
+        }
+
+        /* Logout button */
+        .btn-logout {
+            background: rgba(255,255,255,0.12) !important;
+            border: 1.5px solid rgba(255,255,255,0.3) !important;
+            color: rgba(255,255,255,0.88) !important;
+            border-radius: 50px !important;
+            padding: 8px 18px !important;
+            font-size: 0.83rem !important;
+            font-weight: 500 !important;
+            transition: var(--transition) !important;
+            cursor: pointer;
+        }
+
+        .btn-logout:hover {
+            background: var(--berry) !important;
+            border-color: var(--berry) !important;
+            color: #fff !important;
+        }
+
+        /* Toggler */
+        .navbar-toggler-custom {
+            background: rgba(255,255,255,0.15);
+            border: 1.5px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .navbar-toggler-custom span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            margin: 4px 0;
+            transition: var(--transition);
+        }
+
+        /* Decorative top bar */
+        .top-bar {
+            background: var(--leaf);
+            padding: 6px 0;
+            font-size: 0.76rem;
+            color: var(--leaf-light);
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .top-bar strong { color: var(--citrus-lt); }
+
+        /* ─── Main content ──────────────────────────────── */
+        .main-wrapper {
+            min-height: 80vh;
+            padding: 36px 0;
+        }
+
+        /* ─── Footer ────────────────────────────────────── */
+        .site-footer {
+            background: #111813;
+            color: #C8D8CC;
+            padding-top: 60px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative blobs */
+        .site-footer::before {
+            content: '🍊';
+            position: absolute;
+            top: -30px;
+            left: 5%;
+            font-size: 120px;
+            opacity: 0.04;
+            pointer-events: none;
+        }
+
+        .site-footer::after {
+            content: '🍇';
+            position: absolute;
+            bottom: 40px;
+            right: 5%;
+            font-size: 100px;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.03em;
+        }
+
+        .footer-brand span { color: var(--citrus); }
+
+        .footer-tagline {
+            color: #8FAF97;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .footer-divider {
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #2D5A3E, transparent);
+            margin: 36px 0 28px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 20px;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: #8FAF97;
+            text-decoration: none;
+            font-size: 0.84rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--citrus); }
+
+        .footer-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .footer-badge {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            padding: 7px 18px;
+            font-size: 0.8rem;
+            color: #AAC8B2;
+        }
+
+        .footer-badge i { color: var(--citrus-lt); }
+
+        .footer-bottom {
+            background: rgba(0,0,0,0.25);
+            padding: 16px 0;
+            text-align: center;
+            font-size: 0.78rem;
+            color: #5A7A62;
+            border-top: 1px solid #1E3A26;
+        }
+
+        /* ─── Responsive ────────────────────────────────── */
+        @media (max-width: 991px) {
+            .nav-menu {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                padding: 16px 0;
+                border-top: 1px solid rgba(255,255,255,0.15);
+                margin-top: 12px;
+                width: 100%;
+            }
+
+            .nav-menu .nav-link-custom {
+                width: 100%;
+                border-radius: 12px;
+                padding: 10px 16px;
+            }
+
+            .navbar-collapse-custom { width: 100%; }
+
+            .nav-actions { width: 100%; padding-bottom: 4px; }
+        }
+
+        /* ─── Page load animation ───────────────────────── */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .site-header { animation: slideDown 0.55s ease both; }
+
+        .main-wrapper {
+            animation: fadeUp 0.6s ease 0.15s both;
+        }
+
+        /* Floating fruit decoration beside main content area */
+        .main-wrapper::before {
+            content: '';
+            position: fixed;
+            top: 30%;
+            right: -80px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(116,198,157,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+
+        <div class="top-bar">
+            🚚 <strong>Miễn phí vận chuyển</strong> đơn từ 200,000đ &nbsp;·&nbsp;
+            🌿 Trái cây <strong>100% tươi sạch</strong>, nhập mỗi ngày &nbsp;·&nbsp;
+            📞 Hotline: <strong>1800 0000</strong>
+        </div>
+
+        <header class="site-header">
+            <nav class="main-navbar navbar navbar-expand-lg">
+                <div class="container">
+
+                    <a class="navbar-brand-custom" href="Default.aspx">
+                        <div class="brand-icon">🍓</div>
+                        <div class="brand-text">
+                            <span class="brand-name">Fruit Shop</span>
+                            <span class="brand-tagline">Tươi sạch · Mỗi ngày</span>
+                        </div>
+                    </a>
+
+                    <button class="navbar-toggler-custom d-lg-none border-0" type="button"
+                            data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse navbar-collapse-custom" id="navbarNav">
+                        <ul class="nav-menu ml-auto nav-actions">
+
+                            <li class="nav-item">
+                                <a class="nav-link-custom" href="Default.aspx">
+                                    <i class="fa-solid fa-house"></i> Trang chủ
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link-custom" href="Shop.aspx">
+                                    <i class="fa-solid fa-store"></i> Cửa hàng
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link-custom position-relative" href="Cart.aspx">
+                                    <i class="fa-solid fa-basket-shopping"></i> Giỏ hàng
+                                    <asp:Label ID="lblCartCount" runat="server"
+                                        CssClass="cart-badge"
+                                        Text="0">
+                                    </asp:Label>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <asp:HyperLink ID="lnkUser" runat="server" CssClass="nav-link-custom">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                    <asp:Label ID="lblUser" runat="server"></asp:Label>
+                                </asp:HyperLink>
+                            </li>
+
+                            <li class="nav-item">
+                                <asp:LinkButton ID="lnkLogout" runat="server"
+                                    OnClick="lnkLogout_Click"
+                                    CssClass="btn-logout">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                                </asp:LinkButton>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </nav>
+        </header>
+
+        <main class="main-wrapper">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+
+                <div class="text-center mb-4">
+                    <div class="footer-brand">
+                        🍎 Fruit <span>Shop</span>
+                    </div>
+                    <p class="footer-tagline">Cung cấp trái cây tươi ngon, sạch 100% — nhập từ vườn mỗi sáng</p>
+                </div>
+
+                <div class="footer-badges">
+                    <div class="footer-badge">
+                        <i class="fa-solid fa-leaf"></i> Organic & Sạch
+                    </div>
+                    <div class="footer-badge">
+                        <i class="fa-solid fa-truck-fast"></i> Giao hàng nhanh
+                    </div>
+                    <div class="footer-badge">
+                        <i class="fa-solid fa-shield-halved"></i> Đảm bảo chất lượng
+                    </div>
+                    <div class="footer-badge">
+                        <i class="fa-solid fa-headset"></i> Hỗ trợ 24/7
+                    </div>
+                </div>
+
+                <hr class="footer-divider" />
+
+                <div class="footer-links">
+                    <a href="Default.aspx">Trang chủ</a>
+                    <a href="Shop.aspx">Cửa hàng</a>
+                    <a href="Cart.aspx">Giỏ hàng</a>
+                    <a href="#">Về chúng tôi</a>
+                    <a href="#">Chính sách đổi trả</a>
+                    <a href="#">Liên hệ</a>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    &copy; 2026 <strong style="color:#8FAF97;">Fruit Shop</strong>. 
+                    Tất cả quyền được bảo lưu. &nbsp;·&nbsp; 
+                    Làm với ❤️ tại Việt Nam
+                </div>
+            </div>
+        </footer>
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        (function () {
+            var path = window.location.pathname.split('/').pop().toLowerCase();
+            document.querySelectorAll('.nav-link-custom').forEach(function (el) {
+                var href = (el.getAttribute('href') || '').toLowerCase();
+                if (href && href === path) el.classList.add('active');
+            });
+        })();
+    </script>
+</body>
+</html>

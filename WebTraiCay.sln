@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTraiCay", "WebTraiCay\WebTraiCay.csproj", "{84A03CF7-46FB-45C0-A409-BB0413CCA9E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84A03CF7-46FB-45C0-A409-BB0413CCA9E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A03CF7-46FB-45C0-A409-BB0413CCA9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A03CF7-46FB-45C0-A409-BB0413CCA9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A03CF7-46FB-45C0-A409-BB0413CCA9E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CAFD0E63-C232-4BAA-B922-FF8B78822561}
+	EndGlobalSection
+EndGlobal
